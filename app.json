@@ -1,0 +1,12 @@
+{
+  "name": "ElementUI",
+  "displayName": "ElementUI",
+  "expo": {
+    "name": "ElementUI",
+    "slug": "ElementUI",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

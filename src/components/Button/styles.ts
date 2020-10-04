@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import whitelabel from './whitelabel-fluent';
+import { setStyle } from '../../utils/style';
 
-export const styles = StyleSheet.create({
+export const defaultStyle = StyleSheet.create({
   buttonContainer: {
     padding: 3,
     justifyContent: 'center',
@@ -14,8 +14,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     margin: -1,
   },
-  button: {
-    // Default
+  block: {
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'flex-start',
@@ -27,30 +26,16 @@ export const styles = StyleSheet.create({
 });
 
 export const modifier = {
-  focus1: StyleSheet.create({
-    button: {
-      backgroundColor: '#000',
-    },
-  }),
-  focus2: StyleSheet.create({
-    button: {
-      backgroundColor: '#FFF',
-    },
-  }),
-
-  // Type
-  accent: StyleSheet.create(whitelabel?.button?.type?.accent),
-  default: StyleSheet.create(whitelabel?.button?.type?.default),
-  text: StyleSheet.create(whitelabel?.button?.type?.text),
-
-  // Size
-  xxxSmall: StyleSheet.create(whitelabel?.button?.size?.xxxSmall),
-  xxSmall: StyleSheet.create(whitelabel?.button?.size?.xxxSmall),
-  xSmall: StyleSheet.create(whitelabel?.button?.size?.xSmall),
-  small: StyleSheet.create(whitelabel?.button?.size?.small),
-  medium: StyleSheet.create(whitelabel?.button?.size?.medium),
-  large: StyleSheet.create(whitelabel?.button?.size?.large),
-  xLarge: StyleSheet.create(whitelabel?.button?.size?.xLarge),
-  xxLarge: StyleSheet.create(whitelabel?.button?.size?.xxLarge),
-  xxxLarge: StyleSheet.create(whitelabel?.button?.size?.xxxLarge),
+  accent: {
+    block: StyleSheet.create(setStyle('button', 'accent', 'block')),
+    text: StyleSheet.create(setStyle('button', 'accent', 'text')),
+  },
+  default: {
+    block: StyleSheet.create(setStyle('button', 'default', 'block')),
+    text: StyleSheet.create(setStyle('button', 'default', 'text')),
+  },
+  text: {
+    block: StyleSheet.create(setStyle('button', 'text', 'block')),
+    text: StyleSheet.create(setStyle('button', 'text', 'text')),
+  },
 };

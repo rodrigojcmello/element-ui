@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { modifier, styles } from './styles';
+import { modifier, defaultStyle } from './styles';
 
 interface ButtonProps {
   text: string;
-  type: 'default' | 'accent' | 'text';
+  type: 'accent' | 'default' | 'text';
   size?:
     | 'xxxSmall'
     | 'xxSmall'
@@ -17,31 +17,30 @@ interface ButtonProps {
     | 'xxxLarge';
 }
 
-const Button: FC<ButtonProps> = ({ text, type, size }) => {
+const Button: FC<ButtonProps> = ({ text, type, size = 'medium' }) => {
   const [focus, setFocus] = useState(false);
 
   return (
     <TouchableOpacity
       onFocus={(): void => setFocus(true)}
       onBlur={(): void => setFocus(false)}
-      style={[styles.buttonContainer, focus && modifier.focus1.button]}
     >
       <View>
-        <View
-          style={[styles.buttonContainer2, focus && modifier.focus2.button]}
-        >
+        <View>
           <View
             style={[
-              styles.button,
-              modifier[type]?.button,
-              modifier[size || 'medium']?.button,
+              defaultStyle.block,
+              modifier[type].block.base,
+              modifier[type].block.rest,
+              modifier[type].block[size],
             ]}
           >
             <Text
               style={[
-                styles.text,
-                modifier[type]?.text,
-                modifier[size || 'medium']?.text,
+                defaultStyle.text,
+                modifier[type].text.base,
+                modifier[type].text.rest,
+                modifier[type].text[size],
               ]}
             >
               123{text}

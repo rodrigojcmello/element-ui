@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { modifier, defaultStyle } from './styles';
+import { useStyle } from '../../utils/style';
 
 interface ButtonProps {
   text: string;
@@ -15,36 +15,28 @@ interface ButtonProps {
     | 'xLarge'
     | 'xxLarge'
     | 'xxxLarge';
+  validation?: 'warning' | 'error' | 'success' | 'disabled';
 }
 
-const Button: FC<ButtonProps> = ({ text, type, size = 'medium' }) => {
-  const [focus, setFocus] = useState(false);
+const Button: FC<ButtonProps> = ({
+  text,
+  type,
+  size = 'medium',
+  validation,
+}) => {
+  // const [focus, setFocus] = useState(false);
+
+  const style = useStyle('button', type, validation, size);
 
   return (
     <TouchableOpacity
-      onFocus={(): void => setFocus(true)}
-      onBlur={(): void => setFocus(false)}
+    // onFocus={(): void => setFocus(true)}
+    // onBlur={(): void => setFocus(false)}
     >
       <View>
         <View>
-          <View
-            style={[
-              defaultStyle.block,
-              modifier[type].block.base,
-              modifier[type].block.rest,
-              modifier[type].block[size],
-            ]}
-          >
-            <Text
-              style={[
-                defaultStyle.text,
-                modifier[type].text.base,
-                modifier[type].text.rest,
-                modifier[type].text[size],
-              ]}
-            >
-              123{text}
-            </Text>
+          <View style={style('block')}>
+            <Text style={style('text')}>{text}</Text>
           </View>
         </View>
       </View>

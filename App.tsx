@@ -13,6 +13,11 @@ const App: FC = () => {
         <Button
           type="accent"
           text="accent 2 fa;ods jfaosd ijfaosd ifja;sdof j"
+          validation="disabled"
+        />
+        <Button
+          type="accent"
+          text="accent 2 fa;ods jfaosd ijfaosd ifja;sdof j"
         />
         <Button type="default" text="default 2" />
         <Button type="text" text="text 2" />

@@ -24,31 +24,39 @@ export type ElementBackground = Pick<RNStyle, 'backgroundColor'>;
 // Dimensions
 // -----------------------------------------------------------------------------
 
-export interface ElementDimensions {
-  height?: number;
-  minWidth?: number;
-}
+type DimensionsKeys = 'height' | 'minWidth' | 'borderStyle' | 'borderColor';
 
-export interface ElementTextColor {
-  color?: string;
-}
+export type ElementDimensions = Pick<RNStyle, DimensionsKeys>;
 
-export interface ElementTextSizing extends ElementTextColor {
-  fontSize?: number;
-  lineHeight?: number;
-  fontWeight?: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
-}
+// -----------------------------------------------------------------------------
+// Text Color
+// -----------------------------------------------------------------------------
 
-export interface ElementHorizontalPadding {
-  paddingLeft?: number;
-  paddingRight?: number;
-}
+export type ElementTextColor = Pick<RNStyle, 'color'>;
 
-export interface ElementText extends ElementTextColor, ElementTextSizing {
-  fontFamily?: string;
-  fontStyle?: 'italic';
-  textDecorationLine?: 'underline' | 'overline' | 'line-through';
-}
+// -----------------------------------------------------------------------------
+// Text Sizing
+// -----------------------------------------------------------------------------
+
+type TextSizingKeys = 'fontSize' | 'lineHeight' | 'fontWeight';
+
+export type ElementTextSizing = Pick<RNStyle, TextSizingKeys>;
+
+// -----------------------------------------------------------------------------
+// Horizontal Padding
+// -----------------------------------------------------------------------------
+
+type HorizontalPaddingKeys = 'paddingLeft' | 'paddingRight';
+
+export type ElementHorizontalPadding = Pick<RNStyle, HorizontalPaddingKeys>;
+
+// -----------------------------------------------------------------------------
+// Text
+// -----------------------------------------------------------------------------
+
+type TextKeys = 'fontFamily' | 'fontStyle' | 'textDecorationLine';
+
+export type ElementText = Pick<RNStyle, TextKeys>;
 
 // -----------------------------------------------------------------------------
 // Schema
@@ -79,7 +87,7 @@ type SizingStyle = {
   [attribute in SizingKeys]: RNStyle;
 };
 
-// Validation ----------------------------------------------------------------------
+// Validation ------------------------------------------------------------------
 
 type ValidationKeys = 'warning' | 'error' | 'success' | 'disabled';
 

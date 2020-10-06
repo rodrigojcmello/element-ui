@@ -1,5 +1,29 @@
+import { useCallback } from 'react';
 import { ComponentStyle, StyleModifier } from '../components/types';
 import styleSchema from '../schemas';
+import { componentStyle } from '../components/Button/styles';
+
+export const useStyle = (
+  component: string,
+  type: string,
+  validation?: string,
+  size: string
+): any => {
+  return useCallback(
+    (element: string) => {
+      return [
+        componentStyle.base[element],
+        componentStyle.modifier[type][element].base,
+        componentStyle.modifier[type][element].rest,
+        validation
+          ? componentStyle.modifier[type][element][validation]
+          : undefined,
+        componentStyle.modifier[type][element][size],
+      ];
+    },
+    [type, validation, size]
+  );
+};
 
 export function setStyle(
   component: string,

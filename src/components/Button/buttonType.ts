@@ -1,4 +1,3 @@
-import { OpaqueColorValue } from 'react-native';
 import {
   ElementBackground,
   ElementBorder,
@@ -11,12 +10,7 @@ import {
 
 type ButtonTextElement = ElementText & ElementHorizontalPadding;
 
-// type ButtonBlockElement = ElementBorder & ElementBackground;
-export interface ButtonBlockElement extends ElementBorder, ElementBackground {}
-
-const x: ButtonBlockElement = {
-  backgroundColor: OpaqueColorValue,
-};
+type ButtonBlockElement = ElementBorder & ElementBackground;
 
 export default interface ButtonType {
   button?: {

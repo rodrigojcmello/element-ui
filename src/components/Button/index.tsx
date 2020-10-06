@@ -25,15 +25,11 @@ const Button: FC<ButtonProps> = ({
   validation,
 }) => {
   const interactivity = 'rest';
-  // const [focus, setFocus] = useState(false);
 
   const style = useStyle('button', type, interactivity, validation, sizing);
 
   return (
-    <TouchableOpacity
-    // onFocus={(): void => setFocus(true)}
-    // onBlur={(): void => setFocus(false)}
-    >
+    <TouchableOpacity>
       <View>
         <View>
           <View style={style('block')}>

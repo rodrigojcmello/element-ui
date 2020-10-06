@@ -31,7 +31,7 @@ export const useStyle = (
 
       return [base[element], style[element]];
     },
-    [type, interactivity, validation, sizing]
+    [component, type, interactivity, validation, sizing]
   );
 };
 

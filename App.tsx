@@ -24,9 +24,9 @@ const App: FC = () => {
         <View>
           <Text>Size</Text>
         </View>
-        <Button type="accent" text="accent" size="small" />
-        <Button type="default" text="default" size="medium" />
-        <Button type="accent" text="text" size="xLarge" />
+        <Button type="accent" text="accent" sizing="small" />
+        <Button type="default" text="default" sizing="medium" />
+        <Button type="accent" text="text" sizing="xLarge" />
         <View style={style.block}>
           <Text style={style.text}>Oi</Text>
         </View>

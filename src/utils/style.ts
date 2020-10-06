@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
-import { ComponentStyle, StyleModifier } from '../components/types';
+import { ComponentStyle } from '../components/types';
 import styleSchema from '../schemas';
 import { base } from '../components/Button/styles';
 
@@ -43,17 +43,20 @@ export function setStyle(
   validation: string | undefined,
   sizing: string
 ): any {
-  const base2 = (styleSchema as ComponentStyle)?.[component]?.[type]?.[element];
-  const x = {
-    ...base2?.base,
-    ...(base2?.interactivity
-      ? base2?.interactivity && base2?.interactivity[interactivity]
+  const styleElement = (styleSchema as ComponentStyle)?.[component]?.[type]?.[
+    element
+  ];
+  return {
+    ...styleElement?.base,
+    ...(styleElement?.interactivity
+      ? styleElement?.interactivity &&
+        styleElement?.interactivity[interactivity]
       : {}),
-    ...(base2?.validation
-      ? base2?.validation && base2?.validation[validation]
+    ...(styleElement?.validation
+      ? styleElement?.validation && styleElement?.validation[validation]
       : {}),
-    ...(base2?.sizing ? base2?.sizing && base2?.sizing[sizing] : {}),
-    // backgroundColor: 'blue',
+    ...(styleElement?.sizing
+      ? styleElement?.sizing && styleElement?.sizing[sizing]
+      : {}),
   };
-  return x;
 }

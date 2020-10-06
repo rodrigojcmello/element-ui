@@ -1,7 +1,8 @@
 import { useCallback } from 'react';
+import { StyleSheet } from 'react-native';
 import { ComponentStyle, StyleModifier } from '../components/types';
 import styleSchema from '../schemas';
-import { componentStyle } from '../components/Button/styles';
+import { base } from '../components/Button/styles';
 
 export const useStyle = (
   component: string,
@@ -12,8 +13,26 @@ export const useStyle = (
 ): any => {
   return useCallback(
     (element: string) => {
-      const style = componentStyle(interactivity, validation, sizing);
-      return [style.base[element], style.modifier[type][element]];
+      const style = StyleSheet.create({
+        block: setStyle(
+          component,
+          type,
+          'block',
+          interactivity,
+          validation,
+          sizing
+        ),
+        text: setStyle(
+          component,
+          type,
+          'text',
+          interactivity,
+          validation,
+          sizing
+        ),
+      });
+
+      return [base[element], style[element]];
     },
     [type, interactivity, validation, sizing]
   );
@@ -24,19 +43,20 @@ export function setStyle(
   type: string,
   element: string,
   interactivity: string,
-  validation: string,
+  validation: string | undefined,
   sizing: string
 ): any {
-  const base = (styleSchema as ComponentStyle)?.[component]?.[type]?.[element];
-  return {
-    ...base?.base,
-    ...(base?.interactivity
-      ? base?.interactivity && base?.interactivity[interactivity]
+  const base2 = (styleSchema as ComponentStyle)?.[component]?.[type]?.[element];
+  const x = {
+    ...base2?.base,
+    ...(base2?.interactivity
+      ? base2?.interactivity && base2?.interactivity[interactivity]
       : {}),
-    ...(base?.validation
-      ? base?.validation && base?.validation[validation]
+    ...(base2?.validation
+      ? base2?.validation && base2?.validation[validation]
       : {}),
-    ...(base?.sizing ? base?.sizing && base?.sizing[sizing] : {}),
+    ...(base2?.sizing ? base2?.sizing && base2?.sizing[sizing] : {}),
     // backgroundColor: 'blue',
   };
+  return x;
 }

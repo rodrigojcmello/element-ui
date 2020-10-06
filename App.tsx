@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { SafeAreaView, StatusBar, Text, View } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import Button from './src/components/Button';
 
 const App: FC = () => {
@@ -27,9 +27,26 @@ const App: FC = () => {
         <Button type="accent" text="accent" size="small" />
         <Button type="default" text="default" size="medium" />
         <Button type="accent" text="text" size="xLarge" />
+        <View style={style.block}>
+          <Text style={style.text}>Oi</Text>
+        </View>
       </SafeAreaView>
     </>
   );
 };
+
+const style = StyleSheet.create({
+  block: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'flex-start',
+    backgroundColor: 'red',
+    minWidth: 120,
+  },
+  text: {
+    fontWeight: 'normal',
+    color: '#ffffff',
+  },
+});
 
 export default App;

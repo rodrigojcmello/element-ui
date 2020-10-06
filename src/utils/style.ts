@@ -4,6 +4,8 @@ import { ComponentStyle, StyleModifier } from '../components/types';
 import styleSchema from '../schemas';
 import { base } from '../components/Button/styles';
 
+const buttonElements = ['block', 'text'];
+
 export const useStyle = (
   component: string,
   type: string,
@@ -13,24 +15,19 @@ export const useStyle = (
 ): any => {
   return useCallback(
     (element: string) => {
-      const style = StyleSheet.create({
-        block: setStyle(
+      const elements = {};
+
+      buttonElements.forEach((element_) => {
+        elements[element_] = setStyle(
           component,
           type,
-          'block',
+          element_,
           interactivity,
           validation,
           sizing
-        ),
-        text: setStyle(
-          component,
-          type,
-          'text',
-          interactivity,
-          validation,
-          sizing
-        ),
+        );
       });
+      const style = StyleSheet.create(elements);
 
       return [base[element], style[element]];
     },

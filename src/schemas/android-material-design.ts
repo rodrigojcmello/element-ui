@@ -41,22 +41,22 @@ const androidMaterialDesign: Components = {
       },
       text: {
         base: {
-          fontFamily: 'Roboto, serif',
-          fontWeight: 500,
+          // fontFamily: 'Roboto, serif',
+          fontWeight: 'bold',
           fontSize: 14,
           lineHeight: 20,
           paddingLeft: 16,
           paddingRight: 16,
         },
         interactivity: {
-          rest: { fontColor: '#FFFFFF' },
+          rest: { color: '#FFFFFF' },
           hover: {},
           focus: {},
           pressed: {},
           visited: {},
         },
         validation: {
-          disabled: { fontColor: '#00000066' },
+          disabled: { color: '#00000066' },
         },
         sizing: {
           xxxSmall: {},
@@ -109,15 +109,15 @@ const androidMaterialDesign: Components = {
       },
       text: {
         base: {
-          fontFamily: 'Roboto, serif',
-          fontWeight: 500,
+          // fontFamily: 'Roboto, serif',
+          // fontWeight: 500,
           fontSize: 14,
           lineHeight: 20,
           paddingLeft: 16,
           paddingRight: 16,
         },
         interactivity: {
-          rest: { fontColor: '#6200ee' },
+          rest: { color: '#6200ee' },
           hover: {},
           focus: {},
           pressed: {},
@@ -170,7 +170,7 @@ const androidMaterialDesign: Components = {
       text: {
         base: { lineHeight: 20, fontSize: 14 },
         interactivity: {
-          rest: { fontColor: '#0078D4' },
+          rest: { color: '#0078D4' },
           hover: {},
           focus: {},
           pressed: {},
@@ -224,7 +224,7 @@ const androidMaterialDesign: Components = {
       label: {
         base: {
           fontSize: 14,
-          fontFamily: 'Roboto',
+          // fontFamily: 'Roboto',
           lineHeight: 20,
         },
       },
@@ -264,7 +264,7 @@ const androidMaterialDesign: Components = {
         },
         interactivity: {
           focus: {
-            fontColor: '#6200ee',
+            color: '#6200ee',
           },
         },
       },

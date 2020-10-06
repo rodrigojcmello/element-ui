@@ -6,62 +6,37 @@ import { componentStyle } from '../components/Button/styles';
 export const useStyle = (
   component: string,
   type: string,
-  validation?: string,
-  size: string
+  interactivity: string,
+  validation: string | undefined,
+  sizing: string
 ): any => {
   return useCallback(
     (element: string) => {
-      return [
-        componentStyle.base[element],
-        componentStyle.modifier[type][element].base,
-        componentStyle.modifier[type][element].rest,
-        validation
-          ? componentStyle.modifier[type][element][validation]
-          : undefined,
-        componentStyle.modifier[type][element][size],
-      ];
+      const style = componentStyle(interactivity, validation, sizing);
+      return [style.base[element], style.modifier[type][element]];
     },
-    [type, validation, size]
+    [type, interactivity, validation, sizing]
   );
 };
 
 export function setStyle(
   component: string,
   type: string,
-  element: string
-): StyleModifier {
+  element: string,
+  interactivity: string,
+  validation: string,
+  sizing: string
+): any {
   const base = (styleSchema as ComponentStyle)?.[component]?.[type]?.[element];
-
   return {
-    // Base --------------------------------------------------------------------
-
-    base: base?.base || {},
-
-    // Interactivity -----------------------------------------------------------
-
-    rest: base?.interactivity?.rest || {},
-    hover: base?.interactivity?.hover || {},
-    focus: base?.interactivity?.focus || {},
-    pressed: base?.interactivity?.pressed || {},
-    visited: base?.interactivity?.visited || {},
-
-    // Validation --------------------------------------------------------------
-
-    warning: base?.validation?.warning || {},
-    error: base?.validation?.error || {},
-    success: base?.validation?.success || {},
-    disabled: base?.validation?.disabled || {},
-
-    // Sizing ------------------------------------------------------------------
-
-    xxxSmall: base?.sizing?.xxxSmall || {},
-    xxSmall: base?.sizing?.xxSmall || {},
-    xSmall: base?.sizing?.xSmall || {},
-    small: base?.sizing?.small || {},
-    medium: base?.sizing?.medium || {},
-    large: base?.sizing?.large || {},
-    xLarge: base?.sizing?.xLarge || {},
-    xxLarge: base?.sizing?.xxLarge || {},
-    xxxLarge: base?.sizing?.xxxLarge || {},
+    ...base?.base,
+    ...(base?.interactivity
+      ? base?.interactivity && base?.interactivity[interactivity]
+      : {}),
+    ...(base?.validation
+      ? base?.validation && base?.validation[validation]
+      : {}),
+    ...(base?.sizing ? base?.sizing && base?.sizing[sizing] : {}),
+    // backgroundColor: 'blue',
   };
 }

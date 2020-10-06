@@ -5,7 +5,7 @@ import { useStyle } from '../../utils/style';
 interface ButtonProps {
   text: string;
   type: 'accent' | 'default' | 'text';
-  size?:
+  sizing?:
     | 'xxxSmall'
     | 'xxSmall'
     | 'xSmall'
@@ -21,12 +21,13 @@ interface ButtonProps {
 const Button: FC<ButtonProps> = ({
   text,
   type,
-  size = 'medium',
+  sizing = 'medium',
   validation,
 }) => {
+  const interactivity = 'rest';
   // const [focus, setFocus] = useState(false);
 
-  const style = useStyle('button', type, validation, size);
+  const style = useStyle('button', type, interactivity, validation, sizing);
 
   return (
     <TouchableOpacity

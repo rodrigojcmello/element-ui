@@ -1,6 +1,12 @@
-import { useCallback } from 'react';
+import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
-import { ComponentStyle } from '../components/types';
+import {
+  ComponentStyle,
+  InteractiveKeys,
+  RNStyle,
+  SizingKeys,
+  ValidationKeys,
+} from '../components/types';
 import styleSchema from '../schemas';
 import { base } from '../components/Button/styles';
 
@@ -9,40 +15,37 @@ const buttonElements = ['block', 'text'];
 export const useStyle = (
   component: string,
   type: string,
-  interactivity: string,
-  validation: string | undefined,
-  sizing: string
+  interactivity: InteractiveKeys,
+  validation: ValidationKeys | undefined,
+  sizing: SizingKeys
 ): any => {
-  return useCallback(
-    (element: string) => {
-      const elements = {};
-
-      buttonElements.forEach((element_) => {
-        elements[element_] = setStyle(
+  return useMemo(() => {
+    const elements = {};
+    buttonElements.forEach((element) => {
+      elements[element] = {
+        ...base[element],
+        ...setStyle(
           component,
           type,
-          element_,
+          element,
           interactivity,
           validation,
           sizing
-        );
-      });
-      const style = StyleSheet.create(elements);
-
-      return [base[element], style[element]];
-    },
-    [component, type, interactivity, validation, sizing]
-  );
+        ),
+      };
+    });
+    return StyleSheet.create(elements);
+  }, [component, type, interactivity, validation, sizing]);
 };
 
 export function setStyle(
   component: string,
   type: string,
   element: string,
-  interactivity: string,
-  validation: string | undefined,
-  sizing: string
-): any {
+  interactivity: InteractiveKeys,
+  validation: ValidationKeys | undefined,
+  sizing: SizingKeys
+): RNStyle {
   const styleElement = (styleSchema as ComponentStyle)?.[component]?.[type]?.[
     element
   ];
@@ -53,7 +56,9 @@ export function setStyle(
         styleElement?.interactivity[interactivity]
       : {}),
     ...(styleElement?.validation
-      ? styleElement?.validation && styleElement?.validation[validation]
+      ? styleElement?.validation &&
+        validation &&
+        styleElement?.validation[validation]
       : {}),
     ...(styleElement?.sizing
       ? styleElement?.sizing && styleElement?.sizing[sizing]

@@ -64,15 +64,20 @@ export type ElementText = Pick<RNStyle, TextKeys>;
 
 // Interactive -----------------------------------------------------------------
 
-type InteractiveKeys = 'rest' | 'hover' | 'focus' | 'pressed' | 'visited';
+export type InteractiveKeys =
+  | 'rest'
+  | 'hover'
+  | 'focus'
+  | 'pressed'
+  | 'visited';
 
 type InteractiveStyle = {
-  [attribute in InteractiveKeys]: RNStyle;
+  [attribute in InteractiveKeys]?: RNStyle;
 };
 
 // Sizing ----------------------------------------------------------------------
 
-type SizingKeys =
+export type SizingKeys =
   | 'xxxSmall'
   | 'xxSmall'
   | 'xSmall'
@@ -89,7 +94,7 @@ type SizingStyle = {
 
 // Validation ------------------------------------------------------------------
 
-type ValidationKeys = 'warning' | 'error' | 'success' | 'disabled';
+export type ValidationKeys = 'warning' | 'error' | 'success' | 'disabled';
 
 type ValidationStyle = {
   [attribute in ValidationKeys]: RNStyle;
@@ -99,7 +104,7 @@ type ValidationStyle = {
 
 interface ElementModifiers {
   base?: RNStyle;
-  interactivity?: Partial<InteractiveStyle>;
+  interactivity?: InteractiveStyle;
   sizing?: Partial<SizingStyle>;
   validation?: Partial<ValidationStyle>;
 }

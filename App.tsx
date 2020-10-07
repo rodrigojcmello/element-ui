@@ -1,8 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import Button from './src/components/Button';
 
 const App: FC = () => {
+  const [validation, setValidation] = useState();
+
+  useEffect(() => {
+    setTimeout(() => {
+      setValidation('disabled');
+    }, 5000);
+  }, []);
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -13,7 +21,7 @@ const App: FC = () => {
         <Button
           type="accent"
           text="accent 2 fa;ods jfaosd ijfaosd ifja;sdof j"
-          validation="disabled"
+          validation={validation}
         />
         <Button
           type="accent"

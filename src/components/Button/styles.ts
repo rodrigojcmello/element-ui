@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const base = StyleSheet.create({
+export const base = {
   block: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -9,4 +9,4 @@ export const base = StyleSheet.create({
   text: {
     fontWeight: 'normal',
   },
-});
+};

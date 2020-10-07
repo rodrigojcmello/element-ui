@@ -32,8 +32,8 @@ const Button: FC<ButtonProps> = ({
     <TouchableOpacity>
       <View>
         <View>
-          <View style={style('block')}>
-            <Text style={style('text')}>{text}</Text>
+          <View style={style.block}>
+            <Text style={style.text}>{text}</Text>
           </View>
         </View>
       </View>

@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useStyle } from '../../utils/style';
+import { InteractiveKeys } from '../types';
 
 interface ButtonProps {
   text: string;
@@ -24,18 +25,14 @@ const Button: FC<ButtonProps> = ({
   sizing = 'medium',
   validation,
 }) => {
-  const interactivity = 'rest';
+  const [interactivity] = useState<InteractiveKeys>('rest');
 
   const style = useStyle('button', type, interactivity, validation, sizing);
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity style={style.block}>
       <View>
-        <View>
-          <View style={style.block}>
-            <Text style={style.text}>{text}</Text>
-          </View>
-        </View>
+        <Text style={style.text}>{text}</Text>
       </View>
     </TouchableOpacity>
   );

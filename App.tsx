@@ -1,14 +1,15 @@
 import React, { FC, useEffect, useState } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import Button from './src/components/Button';
+import { ValidationKeys } from './src/components/types';
 
 const App: FC = () => {
-  const [validation, setValidation] = useState();
+  const [validation, setValidation] = useState<ValidationKeys>();
 
   useEffect(() => {
     setTimeout(() => {
       setValidation('disabled');
-    }, 5000);
+    }, 1000);
   }, []);
 
   return (

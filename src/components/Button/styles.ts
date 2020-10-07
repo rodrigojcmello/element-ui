@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { BaseStyle } from '../types';
 
-export const base = {
+export const base: BaseStyle = {
   block: {
     alignItems: 'center',
     justifyContent: 'center',

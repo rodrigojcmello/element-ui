@@ -126,30 +126,9 @@ export type ComponentStyle = {
 };
 
 // -----------------------------------------------------------------------------
-// StyleModifier
+// BaseStyle
 // -----------------------------------------------------------------------------
 
-type StyleKeys =
-  | 'base'
-  | 'rest'
-  | 'hover'
-  | 'focus'
-  | 'pressed'
-  | 'visited'
-  | 'warning'
-  | 'error'
-  | 'success'
-  | 'disabled'
-  | 'xxxSmall'
-  | 'xxSmall'
-  | 'xSmall'
-  | 'small'
-  | 'medium'
-  | 'large'
-  | 'xLarge'
-  | 'xxLarge'
-  | 'xxxLarge';
-
-export type StyleModifier = {
-  [attribute in StyleKeys]: RNStyle;
+export type BaseStyle = {
+  [attribute in string]: RNStyle;
 };

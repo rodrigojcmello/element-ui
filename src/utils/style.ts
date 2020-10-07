@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import {
+  BaseStyle,
   ComponentStyle,
   InteractiveKeys,
   RNStyle,
@@ -18,9 +19,9 @@ export const useStyle = (
   interactivity: InteractiveKeys,
   validation: ValidationKeys | undefined,
   sizing: SizingKeys
-): any => {
+): BaseStyle => {
   return useMemo(() => {
-    const elements = {};
+    const elements: BaseStyle = {};
     buttonElements.forEach((element) => {
       elements[element] = {
         ...base[element],

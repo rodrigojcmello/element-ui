@@ -9,17 +9,17 @@ import {
   ValidationKeys,
 } from '../components/types';
 import styleSchema from '../schemas';
-import { base } from '../components/Button/styles';
+import { base } from '../components/Button/style';
 
 const buttonElements = ['block', 'text'];
 
-export const useStyle = (
+export function useStyle(
   component: string,
   type: string,
   interactivity: InteractiveKeys,
   validation: ValidationKeys | undefined,
   sizing: SizingKeys
-): BaseStyle => {
+): BaseStyle {
   return useMemo(() => {
     const elements: BaseStyle = {};
     buttonElements.forEach((element) => {
@@ -37,7 +37,7 @@ export const useStyle = (
     });
     return StyleSheet.create(elements);
   }, [component, type, interactivity, validation, sizing]);
-};
+}
 
 export function setStyle(
   component: string,

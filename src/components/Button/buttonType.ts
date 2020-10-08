@@ -6,6 +6,7 @@ import {
   ElementText,
   ElementTextColor,
   ElementTextSizing,
+  RNStyle,
 } from '../types';
 
 type ButtonTextElement = ElementText & ElementHorizontalPadding;
@@ -166,3 +167,13 @@ export default interface ButtonType {
     };
   };
 }
+
+//------------------------------------------------------------------------------
+// Button Elements
+//------------------------------------------------------------------------------
+
+export type ButtonElementsKeys = 'block' | 'text';
+
+export type ButtonElements = {
+  [attribute in ButtonElementsKeys]: RNStyle;
+};

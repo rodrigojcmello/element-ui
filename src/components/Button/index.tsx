@@ -1,5 +1,11 @@
 import React, { FC, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Text,
+  TouchableHighlight,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { useStyle } from '../../utils/style';
 import { InteractiveKeys, SizingKeys, ValidationKeys } from '../types';
 
@@ -8,6 +14,10 @@ interface ButtonProps {
   type: 'accent' | 'default' | 'text';
   sizing?: SizingKeys;
   validation?: ValidationKeys;
+  waiting?: 'content' | 'request';
+
+  // TODO: must be required
+  onPress?: () => void;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -15,17 +25,35 @@ const Button: FC<ButtonProps> = ({
   type,
   sizing = 'medium',
   validation,
+  waiting,
+  onPress,
 }) => {
   const [interactivity] = useState<InteractiveKeys>('rest');
 
-  const style = useStyle('button', type, interactivity, validation, sizing);
+  const validationState = waiting === 'request' ? 'disabled' : validation;
+
+  const style = useStyle(
+    'button',
+    type,
+    interactivity,
+    validationState,
+    sizing
+  );
 
   return (
-    <TouchableOpacity style={style.block}>
+    <TouchableHighlight
+      style={style.block}
+      onPress={onPress}
+      disabled={waiting === 'request'}
+    >
       <View>
-        <Text style={style.text}>{text}</Text>
+        {waiting === 'request' ? (
+          <ActivityIndicator color="#FFFFFF" />
+        ) : (
+          <Text style={style.text}>{text}</Text>
+        )}
       </View>
-    </TouchableOpacity>
+    </TouchableHighlight>
   );
 };
 

@@ -6,6 +6,8 @@ import { ValidationKeys } from './src/components/types';
 const App: FC = () => {
   const [validation, setValidation] = useState<ValidationKeys>();
 
+  const [waiting, setWaiting] = useState<'request' | undefined>();
+
   useEffect(() => {
     setTimeout(() => {
       setValidation('disabled');
@@ -26,7 +28,11 @@ const App: FC = () => {
         />
         <Button
           type="accent"
-          text="accent 2 fa;ods jfaosd ijfaosd ifja;sdof j"
+          text="accent 2"
+          onPress={(): void => {
+            setWaiting('request');
+          }}
+          waiting={waiting}
         />
         <Button type="default" text="default 2" />
         <Button type="text" text="text 2" />

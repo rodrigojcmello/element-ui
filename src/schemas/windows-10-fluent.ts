@@ -5,6 +5,11 @@ type Components = ButtonType;
 const styleSchema: Components = {
   button: {
     accent: {
+      loader: {
+        validation: {
+          disabled: { color: '#000000' },
+        },
+      },
       block: {
         base: {
           borderRadius: 2,
@@ -13,7 +18,9 @@ const styleSchema: Components = {
           rest: { backgroundColor: '#0078d4' },
           hover: { backgroundColor: '#429CE3' },
           focus: {},
-          pressed: {},
+          pressed: {
+            backgroundColor: '#005A9E',
+          },
           visited: {},
         },
         sizing: {
@@ -50,7 +57,7 @@ const styleSchema: Components = {
           rest: { color: '#FFFFFF' },
           hover: {},
           focus: {},
-          pressed: {},
+          pressed: { color: '#FFFFFF' },
           visited: {},
         },
         validation: {

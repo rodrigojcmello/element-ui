@@ -41,7 +41,15 @@ const App: FC = () => {
         </View>
         <Button type="accent" text="accent" sizing="small" />
         <Button type="default" text="default" sizing="medium" />
-        <Button type="accent" text="text" sizing="xLarge" />
+        <Button
+          type="accent"
+          text="text"
+          sizing="xLarge"
+          onPress={(): void => {
+            setWaiting('request');
+          }}
+          waiting={waiting}
+        />
         <View style={style.block}>
           <Text style={style.text}>Oi</Text>
         </View>

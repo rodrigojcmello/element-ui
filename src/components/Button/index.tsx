@@ -1,11 +1,5 @@
-import React, { FC, useState } from 'react';
-import {
-  ActivityIndicator,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, { FC, useEffect, useState } from 'react';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import { useStyle } from '../../utils/style';
 import { InteractiveKeys, SizingKeys, ValidationKeys } from '../types';
 
@@ -28,7 +22,8 @@ const Button: FC<ButtonProps> = ({
   waiting,
   onPress,
 }) => {
-  const [interactivity] = useState<InteractiveKeys>('rest');
+  const [interactivity, setInteractivity] = useState<InteractiveKeys>('rest');
+  const [pressIn, setPressIn] = useState<boolean>(false);
 
   const validationState = waiting === 'request' ? 'disabled' : validation;
 
@@ -40,20 +35,36 @@ const Button: FC<ButtonProps> = ({
     sizing
   );
 
+  useEffect(() => {
+    if (pressIn) {
+      setInteractivity('pressed');
+    } else {
+      setInteractivity('rest');
+    }
+  }, [pressIn]);
+
   return (
-    <TouchableHighlight
+    <TouchableOpacity
       style={style.block}
       onPress={onPress}
+      onPressIn={(): void => {
+        setPressIn(true);
+      }}
+      onPressOut={(): void => {
+        setPressIn(false);
+      }}
       disabled={waiting === 'request'}
+      accessibilityRole="button"
+      activeOpacity={1}
     >
       <View>
         {waiting === 'request' ? (
-          <ActivityIndicator color="#FFFFFF" />
+          <ActivityIndicator color="#0078d4" />
         ) : (
           <Text style={style.text}>{text}</Text>
         )}
       </View>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 };
 

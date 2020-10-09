@@ -11,7 +11,7 @@ import {
 import styleSchema from '../schemas';
 import { base } from '../components/Button/style';
 
-const buttonElements = ['block', 'text'];
+const buttonElements = ['block', 'text', 'loader'];
 
 export function useStyle(
   component: string,

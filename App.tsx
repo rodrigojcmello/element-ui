@@ -25,6 +25,7 @@ const App: FC = () => {
           type="accent"
           text="accent 2 fa;ods jfaosd ijfaosd ifja;sdof j"
           validation={validation}
+          waiting="content"
         />
         <Button
           type="accent"
@@ -39,17 +40,25 @@ const App: FC = () => {
         <View>
           <Text>Size</Text>
         </View>
-        <Button type="accent" text="accent" sizing="small" />
-        <Button type="default" text="default" sizing="medium" />
         <Button
           type="accent"
-          text="text"
-          sizing="xLarge"
-          onPress={(): void => {
-            setWaiting('request');
-          }}
-          waiting={waiting}
+          text="accent 123"
+          // sizing="small"
+          waiting="content"
         />
+        <Button type="default" text="default" sizing="medium" />
+        <View style={{ margin: 30 }}>
+          <Button
+            type="accent"
+            text="text"
+            sizing="xLarge"
+            onPress={(): void => {
+              setWaiting('request');
+            }}
+            waiting="content"
+          />
+        </View>
+
         <View style={style.block}>
           <Text style={style.text}>Oi</Text>
         </View>

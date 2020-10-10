@@ -5,6 +5,7 @@ export const base: BaseStyle = {
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'flex-start',
+    overflow: 'hidden',
   },
   text: {
     fontWeight: 'normal',

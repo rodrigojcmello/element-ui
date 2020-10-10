@@ -35,19 +35,12 @@ const Button: FC<ButtonProps> = ({
 }) => {
   const [interactivity, setInteractivity] = useState<InteractiveKeys>('rest');
   const [pressIn, setPressIn] = useState<boolean>(false);
-  const [waitingContent, setWaitingContent] = useState<boolean>(false);
-  const [buttonDimensions, setButtonDimensions] = useState<number>({
+  const [buttonDimensions, setButtonDimensions] = useState({
     width: 0,
     height: 0,
   });
 
   const validationState = waiting === 'request' ? 'disabled' : validation;
-
-  useEffect(() => {
-    setTimeout(() => {
-      setWaitingContent(true);
-    }, 1000);
-  }, []);
 
   const props = useSpring({
     to: {
@@ -119,7 +112,6 @@ const Button: FC<ButtonProps> = ({
           </AnimatedView>
         </View>
       ) : (
-        // </View>
         <View>
           {waiting === 'request' ? (
             <ActivityIndicator color="#0078d4" />
@@ -134,7 +126,6 @@ const Button: FC<ButtonProps> = ({
 
 const x = StyleSheet.create({
   skeleton: {
-    // backgroundColor: 'red',
     height: '100%',
   },
 });

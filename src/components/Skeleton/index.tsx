@@ -14,11 +14,9 @@ const AnimatedView = animated(View);
 const Skeleton: FC<ButtonProps> = ({ width, height, borderRadius }) => {
   const props = useSpring({
     to: {
-      position: 'absolute',
       left: width,
     },
     from: {
-      position: 'absolute',
       left: width * -1,
     },
     config: {
@@ -38,7 +36,11 @@ const Skeleton: FC<ButtonProps> = ({ width, height, borderRadius }) => {
       }}
     >
       <AnimatedView style={props}>
-        <LinearGradient colors={['#f0eef0', '#d9d9d9', '#f0eef0']} end={[1, 0]}>
+        <LinearGradient
+          colors={['#f0eef0', '#d9d9d9', '#f0eef0']}
+          start={[0, 0]}
+          end={[1, 0]}
+        >
           <View style={{ width, height }} />
         </LinearGradient>
       </AnimatedView>

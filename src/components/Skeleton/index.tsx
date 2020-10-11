@@ -38,11 +38,7 @@ const Skeleton: FC<ButtonProps> = ({ width, height, borderRadius }) => {
       }}
     >
       <AnimatedView style={props}>
-        <LinearGradient
-          colors={['#f0eef0', '#d9d9d9', '#f0eef0']}
-          start={[0, 1]}
-          end={[1, 0]}
-        >
+        <LinearGradient colors={['#f0eef0', '#d9d9d9', '#f0eef0']} end={[1, 0]}>
           <View style={{ width, height }} />
         </LinearGradient>
       </AnimatedView>

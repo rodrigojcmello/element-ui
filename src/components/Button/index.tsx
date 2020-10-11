@@ -46,7 +46,7 @@ const Button: FC<ButtonProps> = ({
   return (
     <>
       {waiting === 'content' ? (
-        <Skeleton height={42} width={200} borderRadius={2} />
+        <Skeleton height={50} width={220} borderRadius={2} />
       ) : (
         <TouchableOpacity
           style={style.block}

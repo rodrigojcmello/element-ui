@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { animated, useSpring } from 'react-spring';
-import { View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { StyleSheet, View } from 'react-native';
+// import { LinearGradient } from 'expo-linear-gradient';
 
 interface ButtonProps {
   height: number;
@@ -25,6 +25,12 @@ const Skeleton: FC<ButtonProps> = ({ width, height, borderRadius }) => {
     loop: true,
   });
 
+  const motionProps = {
+    ...props,
+    ...style.block,
+    backgroundColor: 'blue',
+  };
+
   return (
     <View
       style={{
@@ -35,17 +41,23 @@ const Skeleton: FC<ButtonProps> = ({ width, height, borderRadius }) => {
         overflow: 'hidden',
       }}
     >
-      <AnimatedView style={props}>
-        <LinearGradient
-          colors={['#f0eef0', '#d9d9d9', '#f0eef0']}
-          start={[0, 0]}
-          end={[1, 0]}
-        >
-          <View style={{ width, height }} />
-        </LinearGradient>
+      <AnimatedView style={motionProps}>
+        {/* <LinearGradient */}
+        {/*  colors={['#f0eef0', '#d9d9d9', '#f0eef0']} */}
+        {/*  start={[0, 0]} */}
+        {/*  end={[1, 0]} */}
+        {/* > */}
+        <View style={{ width, height }} />
+        {/* </LinearGradient> */}
       </AnimatedView>
     </View>
   );
 };
+
+const style = StyleSheet.create({
+  block: {
+    backgroundColor: 'red',
+  },
+});
 
 export default Skeleton;

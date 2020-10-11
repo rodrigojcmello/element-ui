@@ -34,6 +34,8 @@ export function useStyle(
           sizing
         ),
       };
+      delete elements[element].backgroundColor;
+      delete elements[element].color;
     });
     return StyleSheet.create(elements);
   }, [component, type, interactivity, validation, sizing]);

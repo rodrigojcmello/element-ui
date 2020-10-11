@@ -43,32 +43,44 @@ const Button: FC<ButtonProps> = ({
     }
   }, [pressIn]);
 
+  const blockBackground = 'blue';
+
   return (
     <>
       {waiting === 'content' ? (
         <Skeleton height={50} width={220} borderRadius={2} />
       ) : (
-        <TouchableOpacity
-          style={style.block}
-          onPress={onPress}
-          onPressIn={(): void => {
-            setPressIn(true);
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            alignSelf: 'flex-start',
           }}
-          onPressOut={(): void => {
-            setPressIn(false);
-          }}
-          disabled={waiting === 'request'}
-          accessibilityRole="button"
-          activeOpacity={1}
         >
-          <View>
-            {waiting === 'request' ? (
-              <ActivityIndicator color="#0078d4" />
-            ) : (
-              <Text style={style.text}>{text}</Text>
-            )}
+          <View style={{ backgroundColor: blockBackground }}>
+            <TouchableOpacity
+              style={style.block}
+              onPress={onPress}
+              onPressIn={(): void => {
+                setPressIn(true);
+              }}
+              onPressOut={(): void => {
+                setPressIn(false);
+              }}
+              disabled={waiting === 'request'}
+              accessibilityRole="button"
+              activeOpacity={1}
+            >
+              <View>
+                {waiting === 'request' ? (
+                  <ActivityIndicator color="#0078d4" />
+                ) : (
+                  <Text style={style.text}>{text}</Text>
+                )}
+              </View>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
+        </View>
       )}
     </>
   );

@@ -14,6 +14,15 @@ const App: FC = () => {
     }, 1000);
   }, []);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setWaiting();
+    }, 3000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [waiting]);
+
   return (
     <>
       <StatusBar barStyle="dark-content" />

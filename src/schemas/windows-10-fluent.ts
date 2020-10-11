@@ -61,7 +61,7 @@ const styleSchema: Components = {
           visited: {},
         },
         validation: {
-          disabled: { color: '#00000066' },
+          disabled: { color: '#FFFFFF' },
         },
         sizing: {
           xxxSmall: {},

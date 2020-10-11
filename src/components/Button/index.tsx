@@ -1,8 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
+import { animated, useSpring } from 'react-spring/native';
 import { useStyle } from '../../utils/style';
 import { InteractiveKeys, SizingKeys, ValidationKeys } from '../types';
 import Skeleton from '../Skeleton';
+import styleSchema from '../../schemas';
 
 interface ButtonProps {
   text: string;
@@ -15,6 +17,9 @@ interface ButtonProps {
   onPress?: () => void;
 }
 
+const AnimatedView = animated(View);
+const AnimatedText = animated(Text);
+
 const Button: FC<ButtonProps> = ({
   text,
   type,
@@ -25,6 +30,8 @@ const Button: FC<ButtonProps> = ({
 }) => {
   const [interactivity, setInteractivity] = useState<InteractiveKeys>('rest');
   const [pressIn, setPressIn] = useState<boolean>(false);
+  const [blockBackground, setBlockBackground] = useState<string>();
+  const [textColor, setTextColor] = useState<string>();
   const validationState = waiting === 'request' ? 'disabled' : validation;
 
   const style = useStyle(
@@ -43,7 +50,35 @@ const Button: FC<ButtonProps> = ({
     }
   }, [pressIn]);
 
-  const blockBackground = 'blue';
+  const blockAnim = useSpring({
+    backgroundColor: blockBackground,
+  });
+
+  const textAnim = useSpring({
+    color: textColor,
+  });
+
+  useEffect(() => {
+    const validationColor =
+      styleSchema?.button[type]?.block?.validation[validationState]
+        ?.backgroundColor;
+
+    const interactivityColor =
+      styleSchema?.button[type]?.block?.interactivity[interactivity]
+        ?.backgroundColor;
+
+    setBlockBackground(validationColor || interactivityColor);
+  }, [interactivity, validationState]);
+
+  useEffect(() => {
+    const validationColor =
+      styleSchema?.button[type]?.text?.validation[validationState]?.color;
+
+    const interactivityColor =
+      styleSchema?.button[type]?.text?.interactivity[interactivity]?.color;
+
+    setTextColor(validationColor || interactivityColor);
+  }, [interactivity, validationState]);
 
   return (
     <>
@@ -57,7 +92,7 @@ const Button: FC<ButtonProps> = ({
             alignSelf: 'flex-start',
           }}
         >
-          <View style={{ backgroundColor: blockBackground }}>
+          <AnimatedView style={blockAnim}>
             <TouchableOpacity
               style={style.block}
               onPress={onPress}
@@ -75,11 +110,13 @@ const Button: FC<ButtonProps> = ({
                 {waiting === 'request' ? (
                   <ActivityIndicator color="#0078d4" />
                 ) : (
-                  <Text style={style.text}>{text}</Text>
+                  <AnimatedText style={[style.text, textAnim]}>
+                    {text}
+                  </AnimatedText>
                 )}
               </View>
             </TouchableOpacity>
-          </View>
+          </AnimatedView>
         </View>
       )}
     </>

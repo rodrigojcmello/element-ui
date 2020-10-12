@@ -1,6 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
-import { animated, useSpring, useTransition } from 'react-spring/native';
+import { ActivityIndicator, Pressable, Text, View } from 'react-native';
+import {
+  animated,
+  useSpring,
+  useTransition,
+  config,
+} from 'react-spring/native';
 import { useStyle } from '../../utils/style';
 import { InteractiveKeys, SizingKeys, ValidationKeys } from '../types';
 import Skeleton from '../Skeleton';
@@ -29,7 +34,6 @@ const Button: FC<ButtonProps> = ({
   onPress,
 }) => {
   const [interactivity, setInteractivity] = useState<InteractiveKeys>('rest');
-  const [pressIn, setPressIn] = useState<boolean>(false);
   const [blockBackground, setBlockBackground] = useState<string>();
   const [textColor, setTextColor] = useState<string>();
   const validationState = waiting === 'request' ? 'disabled' : validation;
@@ -48,20 +52,18 @@ const Button: FC<ButtonProps> = ({
     leave: { opacity: 0 },
   });
 
-  useEffect(() => {
-    if (pressIn) {
-      setInteractivity('pressed');
-    } else {
-      setInteractivity('rest');
-    }
-  }, [pressIn]);
-
   const blockAnim = useSpring({
-    backgroundColor: blockBackground,
+    to: {
+      backgroundColor: blockBackground,
+    },
+    config: config.gentle,
   });
 
   const textAnim = useSpring({
-    color: textColor,
+    to: {
+      color: textColor,
+    },
+    config: config.gentle,
   });
 
   useEffect(() => {
@@ -86,10 +88,19 @@ const Button: FC<ButtonProps> = ({
     setTextColor(validationColor || interactivityColor);
   }, [interactivity, validationState]);
 
+  const { height, minWidth } = styleSchema?.button[type]?.block?.sizing[sizing];
+  const { borderRadius } = styleSchema?.button[type]?.block?.base;
+
+  console.log({ interactivity });
+
   return (
     <>
       {waiting === 'content' ? (
-        <Skeleton height={50} width={220} borderRadius={2} />
+        <Skeleton
+          height={height}
+          width={minWidth}
+          borderRadius={borderRadius}
+        />
       ) : (
         <View
           style={{
@@ -99,33 +110,36 @@ const Button: FC<ButtonProps> = ({
           }}
         >
           <AnimatedView style={blockAnim}>
-            <TouchableOpacity
+            <Pressable
               style={style.block}
               onPress={onPress}
-              onPressIn={(): void => {
-                setPressIn(true);
-              }}
-              onPressOut={(): void => {
-                setPressIn(false);
-              }}
               disabled={waiting === 'request'}
               accessibilityRole="button"
-              activeOpacity={1}
             >
-              {transition((style, item) => {
-                return item ? (
-                  <AnimatedView style={style}>
-                    <ActivityIndicator color="#0078d4" />
-                  </AnimatedView>
-                ) : (
-                  <AnimatedView style={style}>
-                    <AnimatedText style={[style.text, textAnim]}>
-                      {text}
-                    </AnimatedText>
-                  </AnimatedView>
-                );
-              })}
-            </TouchableOpacity>
+              {({ hovered, pressed }) => {
+                // eslint-disable-next-line react-hooks/rules-of-hooks
+                useEffect(() => {
+                  setInteractivity(
+                    // eslint-disable-next-line unicorn/no-nested-ternary
+                    pressed ? 'pressed' : hovered ? 'hover' : 'rest'
+                  );
+                }, [hovered, pressed]);
+
+                return transition((style, item) => {
+                  return item ? (
+                    <AnimatedView style={style}>
+                      <ActivityIndicator color="#0078d4" />
+                    </AnimatedView>
+                  ) : (
+                    <AnimatedView style={style}>
+                      <AnimatedText style={[style.text, textAnim]}>
+                        {text}
+                      </AnimatedText>
+                    </AnimatedView>
+                  );
+                });
+              }}
+            </Pressable>
           </AnimatedView>
         </View>
       )}

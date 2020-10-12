@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
-import { animated, useSpring } from 'react-spring/native';
+import { animated, useSpring, useTransition } from 'react-spring/native';
 import { useStyle } from '../../utils/style';
 import { InteractiveKeys, SizingKeys, ValidationKeys } from '../types';
 import Skeleton from '../Skeleton';
@@ -41,6 +41,12 @@ const Button: FC<ButtonProps> = ({
     validationState,
     sizing
   );
+
+  const transition = useTransition(waiting === 'request', {
+    from: { position: 'absolute' },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  });
 
   useEffect(() => {
     if (pressIn) {
@@ -106,15 +112,19 @@ const Button: FC<ButtonProps> = ({
               accessibilityRole="button"
               activeOpacity={1}
             >
-              <View>
-                {waiting === 'request' ? (
-                  <ActivityIndicator color="#0078d4" />
+              {transition((style, item) => {
+                return item ? (
+                  <AnimatedView style={style}>
+                    <ActivityIndicator color="#0078d4" />
+                  </AnimatedView>
                 ) : (
-                  <AnimatedText style={[style.text, textAnim]}>
-                    {text}
-                  </AnimatedText>
-                )}
-              </View>
+                  <AnimatedView style={style}>
+                    <AnimatedText style={[style.text, textAnim]}>
+                      {text}
+                    </AnimatedText>
+                  </AnimatedView>
+                );
+              })}
             </TouchableOpacity>
           </AnimatedView>
         </View>

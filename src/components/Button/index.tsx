@@ -29,6 +29,7 @@ interface ButtonProps {
 }
 
 const AnimatedView = animated(View);
+const AnimatedPressable = animated(Pressable);
 const AnimatedText = animated(Text);
 
 const Button: FC<ButtonProps> = ({
@@ -110,44 +111,35 @@ const Button: FC<ButtonProps> = ({
           borderRadius={borderRadius}
         />
       ) : (
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            alignSelf: 'flex-start',
-          }}
+        <AnimatedPressable
+          style={[style.block, blockAnim]}
+          onPress={onPress}
+          disabled={waiting === 'request'}
+          accessibilityRole="button"
         >
-          <AnimatedView style={[blockAnim]}>
-            <Pressable
-              style={style.block}
-              onPress={onPress}
-              disabled={waiting === 'request'}
-              accessibilityRole="button"
-            >
-              {({ hovered, pressed }) => {
-                // eslint-disable-next-line react-hooks/rules-of-hooks
-                useEffect(() => {
-                  setInteractivity(
-                    // eslint-disable-next-line unicorn/no-nested-ternary
-                    pressed ? 'pressed' : hovered ? 'hover' : 'rest'
-                  );
-                }, [hovered, pressed]);
+          {({ hovered, pressed }) => {
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            useEffect(() => {
+              setInteractivity(
+                // eslint-disable-next-line unicorn/no-nested-ternary
+                pressed ? 'pressed' : hovered ? 'hover' : 'rest'
+              );
+            }, [hovered, pressed]);
 
-                return transition((style, item) => {
-                  return item ? (
-                    <AnimatedView style={style}>
-                      <ActivityIndicator color="#0078d4" />
-                    </AnimatedView>
-                  ) : (
-                    <AnimatedText style={[style.text, style, textAnim]}>
-                      {text}
-                    </AnimatedText>
-                  );
-                });
-              }}
-            </Pressable>
-          </AnimatedView>
-        </View>
+            return transition((styleProps, item) => {
+              return item ? (
+                <AnimatedView style={styleProps}>
+                  {/* TODO: activity indicator must be in json */}
+                  <ActivityIndicator color="#0078d4" />
+                </AnimatedView>
+              ) : (
+                <AnimatedText style={[style.text, styleProps, textAnim]}>
+                  {text}
+                </AnimatedText>
+              );
+            });
+          }}
+        </AnimatedPressable>
       )}
     </>
   );

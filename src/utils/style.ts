@@ -49,22 +49,11 @@ export function setStyle(
   validation: ValidationKeys | undefined,
   sizing: SizingKeys
 ): RNStyle {
-  const styleElement = (styleSchema as ComponentStyle)?.[component]?.[type]?.[
-    element
-  ];
+  const styleElement = styleSchema?.[component]?.[type]?.[element];
   return {
     ...styleElement?.base,
-    ...(styleElement?.interactivity
-      ? styleElement?.interactivity &&
-        styleElement?.interactivity[interactivity]
-      : {}),
-    ...(styleElement?.validation
-      ? styleElement?.validation &&
-        validation &&
-        styleElement?.validation[validation]
-      : {}),
-    ...(styleElement?.sizing
-      ? styleElement?.sizing && styleElement?.sizing[sizing]
-      : {}),
+    ...styleElement?.interactivity?.[interactivity],
+    ...(validation && styleElement?.validation?.[validation]),
+    ...styleElement?.sizing?.[sizing],
   };
 }

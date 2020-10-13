@@ -4,20 +4,24 @@ import { View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 interface ButtonProps {
-  height: number;
-  width: number;
-  borderRadius: number;
+  height?: number | string;
+  width?: number | string;
+  borderRadius?: number | string;
 }
 
 const AnimatedView = animated(View);
 
-const Skeleton: FC<ButtonProps> = ({ width, height, borderRadius }) => {
+const Skeleton: FC<ButtonProps> = ({
+  width = 10,
+  height = 10,
+  borderRadius = 0,
+}) => {
   const props = useSpring({
     to: {
       left: width,
     },
     from: {
-      left: width * -1,
+      left: Number(width) * -1,
     },
     config: {
       duration: 1200,

@@ -1,6 +1,8 @@
-import ButtonType from '../components/Button/buttonType';
+// import ButtonType from '../components/Button/buttonType';
+import { ComponentStyle } from '../components/types';
 
-type Components = ButtonType;
+// type Components = ButtonType;
+type Components = ComponentStyle;
 
 const styleSchema: Components = {
   button: {
@@ -85,10 +87,10 @@ const styleSchema: Components = {
           borderRadius: 2,
         },
         interactivity: {
-          rest: { backgroundColor: '#efefef' },
-          hover: { backgroundColor: '#e6e6e6' },
-          focus: {},
-          pressed: {},
+          rest: { backgroundColor: '#C6C6C6' },
+          hover: { backgroundColor: '#DFDFDF' },
+          focus: { backgroundColor: '#C6C6C6' },
+          pressed: { backgroundColor: '#959595' },
           visited: {},
         },
         sizing: {
@@ -138,8 +140,8 @@ const styleSchema: Components = {
       block: {
         base: { borderRadius: 2 },
         interactivity: {
-          rest: { backgroundColor: '#ffffff00' },
-          hover: { backgroundColor: '#429CE3' },
+          rest: {},
+          hover: {},
           focus: {},
           pressed: {},
           visited: {},
@@ -166,9 +168,9 @@ const styleSchema: Components = {
         base: { lineHeight: 20, fontSize: 14, textDecorationLine: 'underline' },
         interactivity: {
           rest: { color: '#0078D4' },
-          hover: {},
+          hover: { color: '#636363' },
           focus: {},
-          pressed: {},
+          pressed: { color: '#959595' },
           visited: {},
         },
         sizing: {

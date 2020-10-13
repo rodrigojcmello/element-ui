@@ -44,7 +44,14 @@ const App: FC = () => {
           }}
           waiting={waiting}
         />
-        <Button type="default" text="default 2" />
+        <Button
+          type="default"
+          text="default"
+          onPress={(): void => {
+            setWaiting('request');
+          }}
+          waiting={waiting}
+        />
         <Button type="text" text="text 2" />
         <View>
           <Text>Size</Text>

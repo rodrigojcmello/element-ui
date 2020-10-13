@@ -1,5 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
-import { ActivityIndicator, Pressable, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  ColorValue,
+  Pressable,
+  Text,
+  View,
+} from 'react-native';
 import {
   animated,
   useSpring,
@@ -34,8 +40,8 @@ const Button: FC<ButtonProps> = ({
   onPress,
 }) => {
   const [interactivity, setInteractivity] = useState<InteractiveKeys>('rest');
-  const [blockBackground, setBlockBackground] = useState<string>();
-  const [textColor, setTextColor] = useState<string>();
+  const [blockBackground, setBlockBackground] = useState<ColorValue>();
+  const [textColor, setTextColor] = useState<ColorValue>();
   const validationState = waiting === 'request' ? 'disabled' : validation;
 
   const style = useStyle(
@@ -68,30 +74,32 @@ const Button: FC<ButtonProps> = ({
 
   useEffect(() => {
     const validationColor =
-      styleSchema?.button[type]?.block?.validation[validationState]
+      validationState &&
+      styleSchema?.button?.[type]?.block?.validation?.[validationState]
         ?.backgroundColor;
 
     const interactivityColor =
-      styleSchema?.button[type]?.block?.interactivity[interactivity]
+      styleSchema?.button?.[type]?.block?.interactivity?.[interactivity]
         ?.backgroundColor;
 
     setBlockBackground(validationColor || interactivityColor);
-  }, [interactivity, validationState]);
+  }, [type, interactivity, validationState]);
 
   useEffect(() => {
     const validationColor =
-      styleSchema?.button[type]?.text?.validation[validationState]?.color;
+      validationState &&
+      styleSchema?.button?.[type]?.text?.validation?.[validationState]?.color;
 
     const interactivityColor =
-      styleSchema?.button[type]?.text?.interactivity[interactivity]?.color;
+      styleSchema?.button?.[type]?.text?.interactivity?.[interactivity]?.color;
 
     setTextColor(validationColor || interactivityColor);
-  }, [interactivity, validationState]);
+  }, [type, interactivity, validationState]);
 
-  const { height, minWidth } = styleSchema?.button[type]?.block?.sizing[sizing];
-  const { borderRadius } = styleSchema?.button[type]?.block?.base;
-
-  console.log({ interactivity });
+  const height = styleSchema?.button?.[type]?.block?.sizing?.[sizing]?.height;
+  const minWidth =
+    styleSchema?.button?.[type]?.block?.sizing?.[sizing]?.minWidth;
+  const borderRadius = styleSchema?.button?.[type]?.block?.base?.borderRadius;
 
   return (
     <>
@@ -109,7 +117,7 @@ const Button: FC<ButtonProps> = ({
             alignSelf: 'flex-start',
           }}
         >
-          <AnimatedView style={blockAnim}>
+          <AnimatedView style={[blockAnim]}>
             <Pressable
               style={style.block}
               onPress={onPress}
@@ -131,11 +139,9 @@ const Button: FC<ButtonProps> = ({
                       <ActivityIndicator color="#0078d4" />
                     </AnimatedView>
                   ) : (
-                    <AnimatedView style={style}>
-                      <AnimatedText style={[style.text, textAnim]}>
-                        {text}
-                      </AnimatedText>
-                    </AnimatedView>
+                    <AnimatedText style={[style.text, style, textAnim]}>
+                      {text}
+                    </AnimatedText>
                   );
                 });
               }}

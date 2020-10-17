@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import Button from './src/components/Button';
 import { ValidationKeys } from './src/components/types';
+import TextField from './src/components/TextField';
 
 const App: FC = () => {
   const [validation, setValidation] = useState<ValidationKeys>();
@@ -27,6 +28,9 @@ const App: FC = () => {
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
+        <View style={{ margin: 30 }}>
+          <TextField />
+        </View>
         <View>
           <Text>Types</Text>
         </View>
